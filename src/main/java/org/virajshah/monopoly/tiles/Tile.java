@@ -10,6 +10,9 @@ import java.util.List;
  * @author Viraj Shah
  */
 public abstract class Tile {
+	private static final String CHANCE_LABEL = "Chance";
+	private static final String CHEST_LABEL = "Community Chest";
+
 	protected ArrayList<TileAttribute> attributes;
 	protected String name;
 
@@ -20,29 +23,29 @@ public abstract class Tile {
 
 	public Tile(String name, TileAttribute[] attributes) {
 		this.name = name;
-		this.attributes = new ArrayList<TileAttribute>();
+		this.attributes = new ArrayList<>();
 		for (TileAttribute attr : attributes)
 			this.attributes.add(attr);
 	}
 
 	public Tile(String name, TileAttribute attribute) {
 		this.name = name;
-		this.attributes = new ArrayList<TileAttribute>();
+		this.attributes = new ArrayList<>();
 		this.attributes.add(attribute);
 	}
 
 	/**
 	 * @return the attributes
 	 */
-	public ArrayList<TileAttribute> getAttributes() {
+	public List<TileAttribute> getAttributes() {
 		return attributes;
 	}
 
 	/**
 	 * @param attributes the attributes to set
 	 */
-	public void setAttributes(ArrayList<TileAttribute> attributes) {
-		this.attributes = attributes;
+	public void setAttributes(List<TileAttribute> attributes) {
+		this.attributes = (ArrayList<TileAttribute>) attributes;
 	}
 
 	/**
@@ -63,13 +66,13 @@ public abstract class Tile {
 		out[0] = new BasicTile("Go", TileAttribute.GO);
 		out[1] = new ColoredProperty("Mediterranean Avenue", 60, new int[] { 2, 10, 30, 90, 160, 250 },
 				TileAttribute.SET1);
-		out[2] = new BasicTile("Community Chest", TileAttribute.CHEST);
+		out[2] = new BasicTile(CHEST_LABEL, TileAttribute.CHEST);
 		out[3] = new ColoredProperty("Baltic Avenue", 60, new int[] { 4, 20, 60, 180, 320, 450 }, TileAttribute.SET1);
 		out[4] = new BasicTile("Tax", TileAttribute.TAX);
 		out[5] = new NonColoredProperty("Reading Railroad", TileAttribute.RAILROAD);
 		out[6] = new ColoredProperty("Oriental Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 },
 				TileAttribute.SET2);
-		out[7] = new BasicTile("Chance", TileAttribute.CHANCE);
+		out[7] = new BasicTile(CHANCE_LABEL, TileAttribute.CHANCE);
 		out[8] = new ColoredProperty("Vermont Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 }, TileAttribute.SET2);
 		out[9] = new ColoredProperty("Connecticut Avenue", 120, new int[] { 8, 40, 100, 300, 450, 600 },
 				TileAttribute.SET2);
@@ -84,7 +87,7 @@ public abstract class Tile {
 		out[15] = new NonColoredProperty("Pennsylvania Railroad", TileAttribute.RAILROAD);
 		out[16] = new ColoredProperty("St. James Place", 180, new int[] { 14, 70, 200, 550, 750, 950 },
 				TileAttribute.SET4);
-		out[17] = new BasicTile("Community Chest", TileAttribute.CHEST);
+		out[17] = new BasicTile(CHEST_LABEL, TileAttribute.CHEST);
 		out[18] = new ColoredProperty("Tennessee Avenue", 180, new int[] { 14, 70, 200, 550, 750, 950 },
 				TileAttribute.SET4);
 		out[19] = new ColoredProperty("New York Avenue", 200, new int[] { 16, 80, 220, 600, 800, 1000 },
@@ -92,7 +95,7 @@ public abstract class Tile {
 		out[20] = new BasicTile("Free Parking", TileAttribute.FREE_PARKING);
 		out[21] = new ColoredProperty("Kentucky Avenue", 220, new int[] { 18, 90, 250, 700, 875, 1050 },
 				TileAttribute.SET5);
-		out[22] = new BasicTile("Chance", TileAttribute.CHANCE);
+		out[22] = new BasicTile(CHANCE_LABEL, TileAttribute.CHANCE);
 		out[23] = new ColoredProperty("Indiana Avenue", 220, new int[] { 18, 90, 250, 700, 875, 1050 },
 				TileAttribute.SET5);
 		out[24] = new ColoredProperty("Illinois Avenue", 240, new int[] { 20, 100, 300, 750, 925, 1100 },
@@ -110,11 +113,11 @@ public abstract class Tile {
 				TileAttribute.SET7);
 		out[32] = new ColoredProperty("North Carolina Avenue", 300, new int[] { 26, 130, 390, 900, 1100, 1275 },
 				TileAttribute.SET7);
-		out[33] = new BasicTile("Community Chest", TileAttribute.CHEST);
+		out[33] = new BasicTile(CHEST_LABEL, TileAttribute.CHEST);
 		out[34] = new ColoredProperty("Pennsylvania Avenue", 320, new int[] { 28, 150, 450, 1000, 1200, 1400 },
 				TileAttribute.SET7);
 		out[35] = new NonColoredProperty("Short Line", TileAttribute.RAILROAD);
-		out[36] = new BasicTile("Chance", TileAttribute.CHANCE);
+		out[36] = new BasicTile(CHANCE_LABEL, TileAttribute.CHANCE);
 		out[37] = new ColoredProperty("Park Place", 350, new int[] { 35, 175, 500, 1100, 1300, 1500 },
 				TileAttribute.SET8);
 		out[38] = new BasicTile("Tax", TileAttribute.TAX);

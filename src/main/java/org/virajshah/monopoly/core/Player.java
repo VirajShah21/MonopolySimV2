@@ -1,6 +1,7 @@
 package org.virajshah.monopoly.core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.virajshah.monopoly.core.beans.TurnHistoryBean;
 import org.virajshah.monopoly.tiles.PropertyTile;
@@ -23,10 +24,11 @@ public class Player {
 	}
 
 	public void sendMoney(int amount, Player other) {
-		// TODO: Implement
+		addMoney(-amount);
+		other.addMoney(amount);
 	}
 
-	public boolean transaction(int amount) {
+	public boolean addMoney(int amount) {
 		balance += amount;
 		return true;
 	}
@@ -76,15 +78,15 @@ public class Player {
 	/**
 	 * @return the turnHistory
 	 */
-	public ArrayList<TurnHistoryBean> getTurnHistory() {
+	public List<TurnHistoryBean> getTurnHistory() {
 		return turnHistory;
 	}
 
 	/**
 	 * @param turnHistory the turnHistory to set
 	 */
-	public void setTurnHistory(ArrayList<TurnHistoryBean> turnHistory) {
-		this.turnHistory = turnHistory;
+	public void setTurnHistory(List<TurnHistoryBean> turnHistory) {
+		this.turnHistory = (ArrayList<TurnHistoryBean>)turnHistory;
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class Player {
 	/**
 	 * @return the properties
 	 */
-	public ArrayList<PropertyTile> getProperties() {
+	public List<PropertyTile> getProperties() {
 		return properties;
 	}
 }

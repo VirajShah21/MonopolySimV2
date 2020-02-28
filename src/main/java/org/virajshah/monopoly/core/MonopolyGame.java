@@ -2,7 +2,7 @@ package org.virajshah.monopoly.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 import org.virajshah.monopoly.core.beans.TurnHistoryBean;
 import org.virajshah.monopoly.tiles.PropertyTile;
 import org.virajshah.monopoly.tiles.Tile;
@@ -16,16 +16,17 @@ import org.virajshah.monopoly.tiles.TileAttribute;
  */
 public class MonopolyGame {
 	private static final int JAIL_INDEX = 10;
+	private static final Random random = new Random();
 
 	private Tile[] board;
 	private ArrayList<Player> players;
-	private long gameId;
+	private int gameId;
 	private int currPlayer;
 
 	public MonopolyGame() {
 		board = Tile.buildBoard();
 		players = new ArrayList<>();
-		gameId = (int) (Math.random() * Long.MAX_VALUE);
+		gameId = random.nextInt(Integer.MAX_VALUE);
 		currPlayer = 0;
 	}
 
@@ -44,8 +45,8 @@ public class MonopolyGame {
 		Player player = players.get(currPlayer);
 		TurnHistoryBean turn = new TurnHistoryBean();
 		turn.setTurnNumber(player.getTurnHistory().size());
-		turn.setDiceRoll1((int) (Math.random() * 6) + 1);
-		turn.setDiceRoll2((int) (Math.random() * 6) + 1);
+		turn.setDiceRoll1(random.nextInt(7));
+		turn.setDiceRoll2(random.nextInt(7));
 		turn.setOrigin(player.getPosition());
 		turn.setOriginInJail(player.isPrisoner());
 		turn.setInitialBalance(player.getBalance());

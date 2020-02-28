@@ -1,6 +1,7 @@
 package org.virajshah.monopoly.core.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TurnHistoryBean {
 	private int turnNumber;
@@ -29,6 +30,7 @@ public class TurnHistoryBean {
 	 * @param lostProperties
 	 */
 	public TurnHistoryBean() {
+		// Fields populated with mutators
 	}
 
 	/**
@@ -160,29 +162,29 @@ public class TurnHistoryBean {
 	/**
 	 * @return the newProperties
 	 */
-	public ArrayList<Integer> getNewProperties() {
+	public List<Integer> getNewProperties() {
 		return newProperties;
 	}
 
 	/**
 	 * @param newProperties the newProperties to set
 	 */
-	public void setNewProperties(ArrayList<Integer> newProperties) {
-		this.newProperties = newProperties;
+	public void setNewProperties(List<Integer> newProperties) {
+		this.newProperties = (ArrayList<Integer>) newProperties;
 	}
 
 	/**
 	 * @return the lostProperties
 	 */
-	public ArrayList<Integer> getLostProperties() {
+	public List<Integer> getLostProperties() {
 		return lostProperties;
 	}
 
 	/**
 	 * @param lostProperties the lostProperties to set
 	 */
-	public void setLostProperties(ArrayList<Integer> lostProperties) {
-		this.lostProperties = lostProperties;
+	public void setLostProperties(List<Integer> lostProperties) {
+		this.lostProperties = (ArrayList<Integer>) lostProperties;
 	}
 
 }

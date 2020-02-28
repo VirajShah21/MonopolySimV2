@@ -49,7 +49,7 @@ public abstract class PropertyTile extends Tile {
 
 	public boolean purchase(Player purchaser) {
 		if (!isOwned()) {
-			purchaser.transaction(-price);
+			purchaser.addMoney(-price);
 			owner = purchaser;
 			return true;
 		} else {
