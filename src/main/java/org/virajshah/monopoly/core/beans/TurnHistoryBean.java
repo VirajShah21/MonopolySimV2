@@ -30,7 +30,8 @@ public class TurnHistoryBean {
 	 * @param lostProperties
 	 */
 	public TurnHistoryBean() {
-		// Fields populated with mutators
+		newProperties = new ArrayList<>();
+		lostProperties = new ArrayList<>();
 	}
 
 	/**
