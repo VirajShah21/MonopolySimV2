@@ -18,6 +18,9 @@ public class Player {
 	private ArrayList<PropertyTile> properties;
 	private PlayerDNABean dna;
 
+	/**
+	 * @param name The player's name (doesn't really matter)
+	 */
 	public Player(String name) {
 		this.name = name;
 		this.balance = 1500;
@@ -27,14 +30,36 @@ public class Player {
 		dna = new PlayerDNABean();
 	}
 
+	/**
+	 * Default constructor
+	 */
+	public Player() {
+		this.balance = 1500;
+		position = 0;
+		turnHistory = new ArrayList<>();
+		properties = new ArrayList<>();
+		dna = new PlayerDNABean();
+	}
+
+	/**
+	 * Transfer money from one player to another
+	 * 
+	 * @param amount The amount to be transfered (positive to send money; negative
+	 *               to receive)
+	 * @param other  The other player involved in the transaction
+	 */
 	public void sendMoney(int amount, Player other) {
 		addMoney(-amount);
 		other.addMoney(amount);
 	}
 
-	public boolean addMoney(int amount) {
+	/**
+	 * Add money to the player's balance
+	 * 
+	 * @param amount The amount of money to add
+	 */
+	public void addMoney(int amount) {
 		balance += amount;
-		return true;
 	}
 
 	/**

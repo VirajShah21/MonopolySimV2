@@ -3,6 +3,10 @@ package org.virajshah.monopoly.tiles;
 import org.virajshah.monopoly.tiles.exceptions.RentCalculationException;
 
 public class NonColoredProperty extends PropertyTile {
+	/**
+	 * @param name     The name of the property
+	 * @param propType The type of property (either RAILROAD or UTILITY)
+	 */
 	public NonColoredProperty(String name, TileAttribute propType) {
 		super(name, new TileAttribute[] { TileAttribute.PROPERTY, propType, TileAttribute.NONCOLORED_PROPERTY },
 				propType == TileAttribute.RAILROAD ? 200 : 150);

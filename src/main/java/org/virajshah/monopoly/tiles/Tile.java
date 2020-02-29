@@ -16,11 +16,19 @@ public abstract class Tile {
 	protected ArrayList<TileAttribute> attributes;
 	protected String name;
 
+	/**
+	 * @param name       The name of the tile
+	 * @param attributes The attributes associated with the tile
+	 */
 	public Tile(String name, List<TileAttribute> attributes) {
 		this.name = name;
 		this.attributes = (ArrayList<TileAttribute>) attributes;
 	}
 
+	/**
+	 * @param name       The name of the tile
+	 * @param attributes The attributes associated with the tile
+	 */
 	public Tile(String name, TileAttribute[] attributes) {
 		this.name = name;
 		this.attributes = new ArrayList<>();
@@ -28,6 +36,10 @@ public abstract class Tile {
 			this.attributes.add(attr);
 	}
 
+	/**
+	 * @param name       The name of the tile
+	 * @param attributes The attributes associated with the tile
+	 */
 	public Tile(String name, TileAttribute attribute) {
 		this.name = name;
 		this.attributes = new ArrayList<>();

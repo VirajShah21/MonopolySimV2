@@ -32,12 +32,19 @@ public class MonopolyGame {
 		gameId = random.nextInt(Integer.MAX_VALUE);
 		currPlayer = 0;
 	}
-
+	
+	/**
+	 * Add a player to the list of players
+	 * @param p The player to add
+	 */
 	public void addPlayer(Player p) {
 		players.add(p);
 		p.setGame(this);
 	}
-
+	
+	/**
+	 * Simulate the next player's turn
+	 */
 	public void runNextTurn() {
 		if (players.isEmpty())
 			return;
