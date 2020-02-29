@@ -4,7 +4,7 @@ import org.virajshah.monopoly.tiles.exceptions.RentCalculationException;
 
 public class NonColoredProperty extends PropertyTile {
 	public NonColoredProperty(String name, TileAttribute propType) {
-		super(name, new TileAttribute[] { TileAttribute.PROPERTY, propType },
+		super(name, new TileAttribute[] { TileAttribute.PROPERTY, propType, TileAttribute.NONCOLORED_PROPERTY },
 				propType == TileAttribute.RAILROAD ? 200 : 150);
 	}
 

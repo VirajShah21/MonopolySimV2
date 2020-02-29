@@ -5,7 +5,7 @@ public class ColoredProperty extends PropertyTile {
 	private int housesOnProperty;
 
 	public ColoredProperty(String name, int price, int[] rentList, TileAttribute set) {
-		super(name, new TileAttribute[] { TileAttribute.PROPERTY, set }, price);
+		super(name, new TileAttribute[] { TileAttribute.PROPERTY, set, TileAttribute.COLORED_PROPERTY }, price);
 		rents = rentList;
 		housesOnProperty = 0;
 	}

@@ -21,12 +21,14 @@ public class MonopolyGame {
 
 	private Tile[] board;
 	private ArrayList<Player> players;
+	private ArrayList<Player> bankruptedPlayers;
 	private int gameId;
 	private int currPlayer;
 
 	public MonopolyGame() {
 		board = Tile.buildBoard();
 		players = new ArrayList<>();
+		bankruptedPlayers = new ArrayList<>();
 		gameId = random.nextInt(Integer.MAX_VALUE);
 		currPlayer = 0;
 	}
@@ -107,6 +109,12 @@ public class MonopolyGame {
 		logs.info(String.format("%s now has a balance of $%d", player.getName(), player.getBalance()));
 
 		player.getTurnHistory().add(turn);
+
+		// If the player is bankrupted
+		if (player.getBalance() < 0) {
+			bankruptedPlayers.add(player);
+			players.remove(player);
+		}
 	}
 
 	/**
@@ -135,5 +143,33 @@ public class MonopolyGame {
 	 */
 	public int getCurrPlayer() {
 		return currPlayer;
+	}
+
+	/**
+	 * @return the logs
+	 */
+	public static Logger getLogs() {
+		return logs;
+	}
+
+	/**
+	 * @param logs the logs to set
+	 */
+	public static void setLogs(Logger logs) {
+		MonopolyGame.logs = logs;
+	}
+
+	/**
+	 * @return the bankruptedPlayers
+	 */
+	public List<Player> getBankruptedPlayers() {
+		return bankruptedPlayers;
+	}
+
+	/**
+	 * @param bankruptedPlayers the bankruptedPlayers to set
+	 */
+	public void setBankruptedPlayers(List<Player> bankruptedPlayers) {
+		this.bankruptedPlayers = (ArrayList<Player>) bankruptedPlayers;
 	}
 }

@@ -3,8 +3,10 @@ package org.virajshah.monopoly.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.virajshah.monopoly.core.beans.PlayerDNABean;
 import org.virajshah.monopoly.core.beans.TurnHistoryBean;
 import org.virajshah.monopoly.tiles.PropertyTile;
+import org.virajshah.monopoly.tiles.TileAttribute;
 
 public class Player {
 	private String name;
@@ -14,6 +16,7 @@ public class Player {
 	private boolean prisoner;
 	private ArrayList<TurnHistoryBean> turnHistory;
 	private ArrayList<PropertyTile> properties;
+	private PlayerDNABean dna;
 
 	public Player(String name) {
 		this.name = name;
@@ -21,6 +24,7 @@ public class Player {
 		position = 0;
 		turnHistory = new ArrayList<>();
 		properties = new ArrayList<>();
+		dna = new PlayerDNABean();
 	}
 
 	public void sendMoney(int amount, Player other) {
@@ -86,7 +90,7 @@ public class Player {
 	 * @param turnHistory the turnHistory to set
 	 */
 	public void setTurnHistory(List<TurnHistoryBean> turnHistory) {
-		this.turnHistory = (ArrayList<TurnHistoryBean>)turnHistory;
+		this.turnHistory = (ArrayList<TurnHistoryBean>) turnHistory;
 	}
 
 	/**
@@ -102,7 +106,7 @@ public class Player {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	
+
 	/**
 	 * @return the prisoner
 	 */
@@ -116,11 +120,32 @@ public class Player {
 	public void setPrisoner(boolean prisoner) {
 		this.prisoner = prisoner;
 	}
-	
+
 	/**
 	 * @return the properties
 	 */
 	public List<PropertyTile> getProperties() {
 		return properties;
+	}
+
+	/**
+	 * @return the dna
+	 */
+	public PlayerDNABean getDna() {
+		return dna;
+	}
+
+	/**
+	 * @param dna the dna to set
+	 */
+	public void setDna(PlayerDNABean dna) {
+		this.dna = dna;
+	}
+
+	/**
+	 * @param properties the properties to set
+	 */
+	public void setProperties(ArrayList<PropertyTile> properties) {
+		this.properties = properties;
 	}
 }
