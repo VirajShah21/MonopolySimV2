@@ -1,99 +1,62 @@
-package org.virajshah.monopoly.tiles;
+package org.virajshah.monopoly.tiles
 
-import java.util.List;
-import org.virajshah.monopoly.core.Player;
+import org.virajshah.monopoly.core.Player
 
-public abstract class PropertyTile extends Tile {
-	protected Player owner;
-	protected int price;
+abstract class PropertyTile : Tile {
+    var owner: Player? = null
+    var price: Int
+        protected set
 
-	/**
-	 * @param name       The name of the property
-	 * @param attributes The attributes associated with the property
-	 * @param price      The price to purchase the property
-	 */
-	public PropertyTile(String name, List<TileAttribute> attributes, int price) {
-		super(name, attributes);
-		this.price = price;
-	}
+    constructor(name: String, attributes: List<TileAttribute?>, price: Int) : super(name, attributes) {
+        this.price = price
+    }
 
-	/**
-	 * @param name       The name of the property
-	 * @param attributes The attributes associated with the property
-	 * @param price      The price to purchase the property
-	 */
-	public PropertyTile(String name, TileAttribute[] attributes, int price) {
-		super(name, attributes);
-		this.price = price;
-	}
+    constructor(name: String, attributes: Array<TileAttribute?>, price: Int) : super(name, attributes) {
+        this.price = price
+    }
 
-	/**
-	 * @param name       The name of the property
-	 * @param attributes The attributes associated with the property
-	 * @param price      The price to purchase the property
-	 */
-	public PropertyTile(String name, TileAttribute attribute, int price) {
-		super(name, attribute);
-		this.price = price;
-	}
+    constructor(name: String, attribute: TileAttribute?, price: Int) : super(name, attribute) {
+        this.price = price
+    }
 
-	/**
-	 * @return True if the property is owned; false otherwise
-	 */
-	public boolean isOwned() {
-		return owner != null;
-	}
+    val colorSet: TileAttribute?
+        get() {
+            for (attr in attributes) {
+                return when (attr) {
+                    TileAttribute.SET1 -> attr
+                    TileAttribute.SET2 -> attr
+                    TileAttribute.SET3 -> attr
+                    TileAttribute.SET4 -> attr
+                    TileAttribute.SET5 -> attr
+                    TileAttribute.SET6 -> attr
+                    TileAttribute.SET7 -> attr
+                    TileAttribute.SET8 -> attr
+                    else -> null
+                }
+            }
+            return null
+        }
 
-	/**
-	 * @return the owner
-	 */
-	public Player getOwner() {
-		return owner;
-	}
+    fun transferOwnership(newOwner: Player?) {
+        owner!!.properties.remove(this)
+        newOwner!!.properties.add(this)
+        owner = newOwner
+    }
 
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}
+    val isOwned: Boolean
+        get() = owner != null
 
-	/**
-	 * @return the price
-	 */
-	public int getPrice() {
-		return price;
-	}
+    fun purchase(purchaser: Player): Boolean {
+        return if (!isOwned) {
+            purchaser.balance -= price
+            owner = purchaser
+            true
+        } else {
+            false
+        }
+    }
 
-	/**
-	 * Purchase the property
-	 * 
-	 * @param purchaser The player purchasing the property
-	 * @return True if the property is unowned and property was purchased; false
-	 *         otherwise
-	 */
-	public boolean purchase(Player purchaser) {
-		if (!isOwned()) {
-			purchaser.addMoney(-price);
-			owner = purchaser;
-			return true;
-		} else {
-			return false;
-		}
-	}
+    abstract val rent: Int
 
-	/**
-	 * Get the rent of a property
-	 * 
-	 * @return The amount due on rent
-	 */
-	public abstract int getRent();
-
-	/**
-	 * Get the rent of a property (based on dice rolls for Utilities)
-	 * 
-	 * @param roll The sum of the dice rolls
-	 * @return The rent due on the property
-	 */
-	public abstract int getRent(int roll);
+    abstract fun getRent(roll: Int): Int
 }

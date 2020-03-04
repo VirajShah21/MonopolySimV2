@@ -1,29 +1,9 @@
-package org.virajshah.monopoly.tiles;
+package org.virajshah.monopoly.tiles
 
-import java.util.List;
+class BasicTile : Tile {
+    constructor(name: String, attributes: List<TileAttribute?>) : super(name, attributes)
 
-public class BasicTile extends Tile {
-	/**
-	 * @param name       The name of the tile
-	 * @param attributes Attributes associated with the tile
-	 */
-	public BasicTile(String name, List<TileAttribute> attributes) {
-		super(name, attributes);
-	}
+    constructor(name: String, attributes: Array<TileAttribute?>) : super(name, attributes)
 
-	/**
-	 * @param name       The name of the tile
-	 * @param attributes Attributes associated with the tile
-	 */
-	public BasicTile(String name, TileAttribute[] attributes) {
-		super(name, attributes);
-	}
-
-	/**
-	 * @param name       The name of the tile
-	 * @param attributes Attributes associated with the tile
-	 */
-	public BasicTile(String name, TileAttribute attribute) {
-		super(name, attribute);
-	}
+    constructor(name: String, attribute: TileAttribute?) : super(name, attribute)
 }

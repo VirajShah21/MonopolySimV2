@@ -1,54 +1,37 @@
-package org.virajshah.monopoly.tiles;
+package org.virajshah.monopoly.tiles
 
-import org.virajshah.monopoly.tiles.exceptions.RentCalculationException;
+import org.virajshah.monopoly.tiles.exceptions.RentCalculationException
 
-public class NonColoredProperty extends PropertyTile {
-	/**
-	 * @param name     The name of the property
-	 * @param propType The type of property (either RAILROAD or UTILITY)
-	 */
-	public NonColoredProperty(String name, TileAttribute propType) {
-		super(name, new TileAttribute[] { TileAttribute.PROPERTY, propType, TileAttribute.NONCOLORED_PROPERTY },
-				propType == TileAttribute.RAILROAD ? 200 : 150);
-	}
+class NonColoredProperty(name: String, propType: TileAttribute) : PropertyTile(name, arrayOf<TileAttribute?>(TileAttribute.PROPERTY, propType, TileAttribute.NONCOLORED_PROPERTY),
+        if (propType == TileAttribute.RAILROAD) 200 else 150) {
+    override val rent: Int
+        get() {
+            if (owner == null) {
+                throw RentCalculationException(String.format("Cannot get rent on %s; no owner.", name))
+            }
+            return if (attributes.contains(TileAttribute.RAILROAD)) {
+                var railroadCount = 0
+                for (prop in owner!!.properties) if (prop!!.getAttributes().contains(TileAttribute.RAILROAD)) railroadCount++
+                Math.pow(2.0, railroadCount - 1.0).toInt() * 25
+            } else if (getAttributes().contains(TileAttribute.UTILITY)) {
+                throw RentCalculationException(String.format("Cannot get rent on %s; dice roll sum required.", name))
+            } else {
+                throw RentCalculationException(String.format("Cannot get rent on %s; not of type Railroad or Utility", name))
+            }
+        }
 
-	@Override
-	public int getRent() {
-		if (owner == null) {
-			throw new RentCalculationException(String.format("Cannot get rent on %s; no owner.", name));
-		}
-
-		if (attributes.contains(TileAttribute.RAILROAD)) {
-			int railroadCount = 0;
-			for (PropertyTile prop : owner.getProperties())
-				if (prop.getAttributes().contains(TileAttribute.RAILROAD))
-					railroadCount++;
-			return (int) Math.pow(2, railroadCount - 1.0) * 25;
-		} else if (getAttributes().contains(TileAttribute.UTILITY)) {
-			throw new RentCalculationException(String.format("Cannot get rent on %s; dice roll sum required.", name));
-		} else {
-			throw new RentCalculationException(
-					String.format("Cannot get rent on %s; not of type Railroad or Utility", name));
-		}
-	}
-
-	@Override
-	public int getRent(int roll) {
-		if (owner == null) {
-			throw new RentCalculationException(String.format("Cannot get rent on %s; no owner.", name));
-		}
-
-		if (attributes.contains(TileAttribute.UTILITY)) {
-			int utilityCount = 0;
-			for (PropertyTile prop : owner.getProperties())
-				if (prop.getAttributes().contains(TileAttribute.UTILITY))
-					utilityCount++;
-			return roll * (utilityCount == 1 ? 4 : 10);
-		} else if (attributes.contains(TileAttribute.RAILROAD)) {
-			return getRent();
-		} else {
-			throw new RentCalculationException(
-					String.format("Cannot get rent on %s; not of type Railroad or Utility", name));
-		}
-	}
+    override fun getRent(roll: Int): Int {
+        if (owner == null) {
+            throw RentCalculationException(String.format("Cannot get rent on %s; no owner.", name))
+        }
+        return if (attributes.contains(TileAttribute.UTILITY)) {
+            var utilityCount = 0
+            for (prop in owner!!.properties) if (prop!!.getAttributes().contains(TileAttribute.UTILITY)) utilityCount++
+            roll * if (utilityCount == 1) 4 else 10
+        } else if (attributes.contains(TileAttribute.RAILROAD)) {
+            rent
+        } else {
+            throw RentCalculationException(String.format("Cannot get rent on %s; not of type Railroad or Utility", name))
+        }
+    }
 }

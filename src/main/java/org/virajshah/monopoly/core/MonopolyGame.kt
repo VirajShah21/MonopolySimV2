@@ -1,182 +1,103 @@
-package org.virajshah.monopoly.core;
+package org.virajshah.monopoly.core
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import org.virajshah.monopoly.core.beans.TurnHistoryBean;
-import org.virajshah.monopoly.tiles.PropertyTile;
-import org.virajshah.monopoly.tiles.Tile;
-import org.virajshah.monopoly.tiles.TileAttribute;
+import org.virajshah.monopoly.core.beans.TurnHistoryBean
+import org.virajshah.monopoly.tiles.PropertyTile
+import org.virajshah.monopoly.tiles.Tile
+import org.virajshah.monopoly.tiles.TileAttribute
+import java.util.*
 
 /**
  * The MonopolyGame class is responsible for handling all functions of an
  * instance of a Monopoly game.
- * 
+ *
  * @author Viraj Shah
  */
-public class MonopolyGame {
-	private static final int JAIL_INDEX = 10;
-	private static final Random random = new Random();
-	private static Logger logs = new Logger(true);
+class MonopolyGame {
+    val board: Array<Tile?>
+    val gameId: Int
 
-	private Tile[] board;
-	private ArrayList<Player> players;
-	private ArrayList<Player> bankruptedPlayers;
-	private int gameId;
-	private int currPlayer;
+    var players: ArrayList<Player>
+    var bankruptedPlayers: ArrayList<Player>
+    var currPlayer: Int
 
-	public MonopolyGame() {
-		board = Tile.buildBoard();
-		players = new ArrayList<>();
-		bankruptedPlayers = new ArrayList<>();
-		gameId = random.nextInt(Integer.MAX_VALUE);
-		currPlayer = 0;
-	}
-	
-	/**
-	 * Add a player to the list of players
-	 * @param p The player to add
-	 */
-	public void addPlayer(Player p) {
-		players.add(p);
-		p.setGame(this);
-	}
-	
-	/**
-	 * Simulate the next player's turn
-	 */
-	public void runNextTurn() {
-		if (players.isEmpty())
-			return;
+    fun addPlayer(p: Player) {
+        players.add(p)
+        p.game = this
+    }
 
-		currPlayer++;
+    fun runNextTurn() {
+        if (players.isEmpty()) return
+        currPlayer++
+        if (currPlayer >= players.size) currPlayer = 0
+        // Initialize the player and fill in some TurnHistoryBean fields
+        val player = players[currPlayer]
+        val turn = TurnHistoryBean()
+        turn.turnNumber = player.turnHistory.size
+        turn.diceRoll1 = random.nextInt(7)
+        turn.diceRoll2 = random.nextInt(7)
+        turn.origin = player.position
+        turn.isOriginInJail = player.isPrisoner
+        turn.initialBalance = player.balance
+        // Log any relevant info at this time
+//		logs.info(String.format("It is %s's turn #%d", player.getName(), turn.getTurnNumber()));
+//		logs.info(String.format("%s rolled a %d and %d (%d)", player.getName(), turn.getDiceRoll1(),
+//				turn.getDiceRoll2(), turn.getDiceRoll1() + turn.getDiceRoll2()));
+// Move the player to the next position
+        player.position = player.position + turn.diceRoll1 + turn.diceRoll2
+        if (player.position > 39) player.position = player.position - 40
+        // Check if the tile is the "Go To Jail" tile
+        if (board[player.position]!!.attributes.contains(TileAttribute.GO_TO_JAIL)) { //			logs.info(String.format("%s landed on Go To Jail", player.getName()));
+            player.position = JAIL_INDEX
+            turn.isDestinationInJail = true
+            // Log any relevant info at this time
+//			logs.info(String.format("%s is now in jail.", player.getName()));
+//			logs.info(String.format("%s moved from %s to %s", player.getName(), board[turn.getOrigin()].getName(),
+//					board[turn.getDestination()].getName()));
+            return
+        }
+        turn.isDestinationInJail = false
+        turn.destination = player.position
+        // If the player landed on a property:
+        if (board[player.position]!!.attributes.contains(TileAttribute.PROPERTY)) {
+            val property = board[player.position] as PropertyTile
+            if (!property.isOwned && player.balance > property.price) {
+                property.purchase(player)
+                turn.newProperties.add(player.position)
+                //				logs.info(String.format("%s bought %s for $%d.", player.getName(), property.getName(),
+//						property.getPrice()));
+            } else if (property.isOwned) {
+                if (property.attributes.contains(TileAttribute.UTILITY)) {
+                    player.sendMoney(property.getRent(turn.diceRoll1 + turn.diceRoll2), property.owner!!)
+                    //					logs.info(String.format("%s payed $%d to %s for rent on %s", player.getName(),
+//							property.getRent(turn.getDiceRoll1() + turn.getDiceRoll2()), property.getOwner().getName(),
+//							property.getName()));
+                } else {
+                    player.sendMoney(property.rent, property.owner!!)
+                    //					logs.info(String.format("%s payed $%d to %s for rent on %s", player.getName(), property.getRent(),
+//							property.getOwner().getName(), property.getName()));
+                }
+            }
+        }
+        turn.recentBalance = player.balance
+        //		logs.info(String.format("%s now has a balance of $%d", player.getName(), player.getBalance()));
+        player.turnHistory.add(turn)
+        // If the player is bankrupted
+        if (player.balance < 0) {
+            bankruptedPlayers.add(player)
+            players.remove(player)
+        }
+    }
 
-		if (currPlayer >= players.size())
-			currPlayer = 0;
+    companion object {
+        private const val JAIL_INDEX = 10
+        private val random = Random()
+    }
 
-		// Initialize the player and fill in some TurnHistoryBean fields
-		Player player = players.get(currPlayer);
-		TurnHistoryBean turn = new TurnHistoryBean();
-		turn.setTurnNumber(player.getTurnHistory().size());
-		turn.setDiceRoll1(random.nextInt(7));
-		turn.setDiceRoll2(random.nextInt(7));
-		turn.setOrigin(player.getPosition());
-		turn.setOriginInJail(player.isPrisoner());
-		turn.setInitialBalance(player.getBalance());
-
-		// Log any relevant info at this time
-		logs.info(String.format("It is %s's turn #%d", player.getName(), turn.getTurnNumber()));
-		logs.info(String.format("%s rolled a %d and %d (%d)", player.getName(), turn.getDiceRoll1(),
-				turn.getDiceRoll2(), turn.getDiceRoll1() + turn.getDiceRoll2()));
-
-		// Move the player to the next position
-		player.setPosition(player.getPosition() + turn.getDiceRoll1() + turn.getDiceRoll2());
-		if (player.getPosition() > 39)
-			player.setPosition(player.getPosition() - 40);
-
-		// Check if the tile is the "Go To Jail" tile
-		if (board[player.getPosition()].getAttributes().contains(TileAttribute.GO_TO_JAIL)) {
-			logs.info(String.format("%s landed on Go To Jail", player.getName()));
-			player.setPosition(JAIL_INDEX);
-			turn.setDestinationInJail(true);
-
-			// Log any relevant info at this time
-			logs.info(String.format("%s is now in jail.", player.getName()));
-			logs.info(String.format("%s moved from %s to %s", player.getName(), board[turn.getOrigin()].getName(),
-					board[turn.getDestination()].getName()));
-
-			return;
-		}
-		turn.setDestinationInJail(false);
-		turn.setDestination(player.getPosition());
-		// If the player landed on a property:
-		if (board[player.getPosition()].getAttributes().contains(TileAttribute.PROPERTY)) {
-			PropertyTile property = (PropertyTile) board[player.getPosition()];
-
-			if (!property.isOwned() && player.getBalance() > property.getPrice()) {
-				property.purchase(player);
-				turn.getNewProperties().add(player.getPosition());
-				logs.info(String.format("%s bought %s for $%d.", player.getName(), property.getName(),
-						property.getPrice()));
-			} else if (property.isOwned()) {
-				if (property.getAttributes().contains(TileAttribute.UTILITY)) {
-					player.sendMoney(property.getRent(turn.getDiceRoll1() + turn.getDiceRoll2()), property.getOwner());
-					logs.info(String.format("%s payed $%d to %s for rent on %s", player.getName(),
-							property.getRent(turn.getDiceRoll1() + turn.getDiceRoll2()), property.getOwner().getName(),
-							property.getName()));
-				} else {
-					player.sendMoney(property.getRent(), property.getOwner());
-					logs.info(String.format("%s payed $%d to %s for rent on %s", player.getName(), property.getRent(),
-							property.getOwner().getName(), property.getName()));
-				}
-			}
-		}
-		turn.setRecentBalance(player.getBalance());
-
-		logs.info(String.format("%s now has a balance of $%d", player.getName(), player.getBalance()));
-
-		player.getTurnHistory().add(turn);
-
-		// If the player is bankrupted
-		if (player.getBalance() < 0) {
-			bankruptedPlayers.add(player);
-			players.remove(player);
-		}
-	}
-
-	/**
-	 * @return the board
-	 */
-	public Tile[] getBoard() {
-		return board;
-	}
-
-	/**
-	 * @return the players
-	 */
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * @return the gameId
-	 */
-	public long getGameId() {
-		return gameId;
-	}
-
-	/**
-	 * @return the currPlayer
-	 */
-	public int getCurrPlayer() {
-		return currPlayer;
-	}
-
-	/**
-	 * @return the logs
-	 */
-	public static Logger getLogs() {
-		return logs;
-	}
-
-	/**
-	 * @param logs the logs to set
-	 */
-	public static void setLogs(Logger logs) {
-		MonopolyGame.logs = logs;
-	}
-
-	/**
-	 * @return the bankruptedPlayers
-	 */
-	public List<Player> getBankruptedPlayers() {
-		return bankruptedPlayers;
-	}
-
-	/**
-	 * @param bankruptedPlayers the bankruptedPlayers to set
-	 */
-	public void setBankruptedPlayers(List<Player> bankruptedPlayers) {
-		this.bankruptedPlayers = (ArrayList<Player>) bankruptedPlayers;
-	}
+    init {
+        board = Tile.buildBoard()
+        players = ArrayList()
+        bankruptedPlayers = ArrayList()
+        gameId = random.nextInt(Int.MAX_VALUE)
+        currPlayer = 0
+    }
 }
