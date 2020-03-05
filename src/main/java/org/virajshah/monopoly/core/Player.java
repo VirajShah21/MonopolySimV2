@@ -1,176 +1,175 @@
 package org.virajshah.monopoly.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.virajshah.monopoly.core.beans.PlayerDNABean;
 import org.virajshah.monopoly.core.beans.TurnHistoryBean;
 import org.virajshah.monopoly.tiles.PropertyTile;
-import org.virajshah.monopoly.tiles.TileAttribute;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
-	private String name;
-	private int balance;
-	private MonopolyGame game;
-	private int position;
-	private boolean prisoner;
-	private ArrayList<TurnHistoryBean> turnHistory;
-	private ArrayList<PropertyTile> properties;
-	private PlayerDNABean dna;
+    private String name;
+    private int balance;
+    private MonopolyGame game;
+    private int position;
+    private boolean prisoner;
+    private List<TurnHistoryBean> turnHistory;
+    private List<PropertyTile> properties;
+    private PlayerDNABean dna;
 
-	/**
-	 * @param name The player's name (doesn't really matter)
-	 */
-	public Player(String name) {
-		this.name = name;
-		this.balance = 1500;
-		position = 0;
-		turnHistory = new ArrayList<>();
-		properties = new ArrayList<>();
-		dna = new PlayerDNABean();
-	}
+    /**
+     * @param name The player's name (doesn't really matter)
+     */
+    public Player(String name) {
+        this.name = name;
+        this.balance = 1500;
+        position = 0;
+        turnHistory = new ArrayList<>();
+        properties = new ArrayList<>();
+        dna = new PlayerDNABean();
+    }
 
-	/**
-	 * Default constructor
-	 */
-	public Player() {
-		this.balance = 1500;
-		position = 0;
-		turnHistory = new ArrayList<>();
-		properties = new ArrayList<>();
-		dna = new PlayerDNABean();
-	}
+    /**
+     * Default constructor
+     */
+    public Player() {
+        this.balance = 1500;
+        position = 0;
+        turnHistory = new ArrayList<>();
+        properties = new ArrayList<>();
+        dna = new PlayerDNABean();
+    }
 
-	/**
-	 * Transfer money from one player to another
-	 * 
-	 * @param amount The amount to be transfered (positive to send money; negative
-	 *               to receive)
-	 * @param other  The other player involved in the transaction
-	 */
-	public void sendMoney(int amount, Player other) {
-		addMoney(-amount);
-		other.addMoney(amount);
-	}
+    /**
+     * Transfer money from one player to another
+     *
+     * @param amount The amount to be transfered (positive to send money; negative
+     *               to receive)
+     * @param other  The other player involved in the transaction
+     */
+    public void sendMoney(int amount, Player other) {
+        addMoney(-amount);
+        other.addMoney(amount);
+    }
 
-	/**
-	 * Add money to the player's balance
-	 * 
-	 * @param amount The amount of money to add
-	 */
-	public void addMoney(int amount) {
-		balance += amount;
-	}
+    /**
+     * Add money to the player's balance
+     *
+     * @param amount The amount of money to add
+     */
+    public void addMoney(int amount) {
+        balance += amount;
+    }
 
-	/**
-	 * @return the game
-	 */
-	public MonopolyGame getGame() {
-		return game;
-	}
+    /**
+     * @return the game
+     */
+    public MonopolyGame getGame() {
+        return game;
+    }
 
-	/**
-	 * @param game the game to set
-	 */
-	public void setGame(MonopolyGame game) {
-		this.game = game;
-	}
+    /**
+     * @param game the game to set
+     */
+    public void setGame(MonopolyGame game) {
+        this.game = game;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return the balance
-	 */
-	public int getBalance() {
-		return balance;
-	}
+    /**
+     * @return the balance
+     */
+    public int getBalance() {
+        return balance;
+    }
 
-	/**
-	 * @param balance the balance to set
-	 */
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
+    /**
+     * @param balance the balance to set
+     */
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
-	/**
-	 * @return the turnHistory
-	 */
-	public List<TurnHistoryBean> getTurnHistory() {
-		return turnHistory;
-	}
+    /**
+     * @return the turnHistory
+     */
+    public List<TurnHistoryBean> getTurnHistory() {
+        return turnHistory;
+    }
 
-	/**
-	 * @param turnHistory the turnHistory to set
-	 */
-	public void setTurnHistory(List<TurnHistoryBean> turnHistory) {
-		this.turnHistory = (ArrayList<TurnHistoryBean>) turnHistory;
-	}
+    /**
+     * @param turnHistory the turnHistory to set
+     */
+    public void setTurnHistory(List<TurnHistoryBean> turnHistory) {
+        this.turnHistory = turnHistory;
+    }
 
-	/**
-	 * @return the position
-	 */
-	public int getPosition() {
-		return position;
-	}
+    /**
+     * @return the position
+     */
+    public int getPosition() {
+        return position;
+    }
 
-	/**
-	 * @param position the position to set
-	 */
-	public void setPosition(int position) {
-		this.position = position;
-	}
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
-	/**
-	 * @return the prisoner
-	 */
-	public boolean isPrisoner() {
-		return prisoner;
-	}
+    /**
+     * @return the prisoner
+     */
+    public boolean isPrisoner() {
+        return prisoner;
+    }
 
-	/**
-	 * @param prisoner the prisoner to set
-	 */
-	public void setPrisoner(boolean prisoner) {
-		this.prisoner = prisoner;
-	}
+    /**
+     * @param prisoner the prisoner to set
+     */
+    public void setPrisoner(boolean prisoner) {
+        this.prisoner = prisoner;
+    }
 
-	/**
-	 * @return the properties
-	 */
-	public List<PropertyTile> getProperties() {
-		return properties;
-	}
+    /**
+     * @return the properties
+     */
+    public List<PropertyTile> getProperties() {
+        return properties;
+    }
 
-	/**
-	 * @return the dna
-	 */
-	public PlayerDNABean getDna() {
-		return dna;
-	}
+    /**
+     * @param properties the properties to set
+     */
+    public void setProperties(List<PropertyTile> properties) {
+        this.properties = properties;
+    }
 
-	/**
-	 * @param dna the dna to set
-	 */
-	public void setDna(PlayerDNABean dna) {
-		this.dna = dna;
-	}
+    /**
+     * @return the dna
+     */
+    public PlayerDNABean getDna() {
+        return dna;
+    }
 
-	/**
-	 * @param properties the properties to set
-	 */
-	public void setProperties(ArrayList<PropertyTile> properties) {
-		this.properties = properties;
-	}
+    /**
+     * @param dna the dna to set
+     */
+    public void setDna(PlayerDNABean dna) {
+        this.dna = dna;
+    }
 }
