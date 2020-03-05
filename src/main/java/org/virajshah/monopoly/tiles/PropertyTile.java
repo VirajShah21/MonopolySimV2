@@ -57,6 +57,8 @@ public abstract class PropertyTile extends Tile {
                     return TileAttribute.SET7;
                 case SET8:
                     return TileAttribute.SET8;
+                default:
+                    continue;
             }
         }
         return null;

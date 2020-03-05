@@ -1,15 +1,13 @@
 package org.virajshah.monopoly.simulator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.virajshah.monopoly.core.MonopolyGame;
 import org.virajshah.monopoly.core.Player;
+import org.virajshah.monopoly.logger.Logger;
 
 public class SimpleSimulation {
-    private static Logger logger = LoggerFactory.getLogger(SimpleSimulation.class);
-
     public static void main(String[] args) {
-        logger.info("Hi");
+        Logger.init();
+
         MonopolyGame game = new MonopolyGame();
 
         game.addPlayer(new Player("Player 1"));
