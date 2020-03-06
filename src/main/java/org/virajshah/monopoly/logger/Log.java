@@ -14,6 +14,6 @@ public abstract class Log {
 
     @Override
     public String toString() {
-        return String.format("%s -", logType);
+        return logType + ":";
     }
 }

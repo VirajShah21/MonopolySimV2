@@ -48,11 +48,9 @@ public class Logger {
         if (LogConfiguration.printing())
             System.out.println(String.format(LOG_FORMAT, timeStamp, className, nextLog.toString()));
 
-
         if (nextLog instanceof ErrorLog && LogConfiguration.printingErrors() && ((ErrorLog) nextLog).getException() != null)
             for (StackTraceElement element : ((ErrorLog) nextLog).getException().getStackTrace())
                 System.out.println(String.format(LOG_FORMAT, timeStamp, className, element.toString()));
-
 
         if (LogConfiguration.writing() && LogConfiguration.format() == LogConfiguration.LogFormat.TEXT)
             writer.println(String.format(LOG_FORMAT, timeStamp, className, nextLog.toString()));

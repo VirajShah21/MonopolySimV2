@@ -6,11 +6,11 @@ public class LogConfiguration {
         TEXT, JSON
     }
 
-    static LogFormat format;
-    static boolean writing;
-    static boolean writingErrors;
-    static boolean printing;
-    static boolean printingErrors;
+    static LogFormat format = LogFormat.TEXT;
+    static boolean writing = true;
+    static boolean writingErrors = true;
+    static boolean printing = false;
+    static boolean printingErrors = true;
 
     public static LogFormat format() {
         return format;
