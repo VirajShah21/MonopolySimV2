@@ -19,6 +19,7 @@ import java.util.Random;
  *
  * @author Viraj Shah
  */
+@SuppressWarnings("unused")
 public class MonopolyGame {
     private static final int JAIL_INDEX = 10;
     private static final Random random = new Random();

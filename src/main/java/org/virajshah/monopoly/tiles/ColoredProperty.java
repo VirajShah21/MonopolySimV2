@@ -1,5 +1,6 @@
 package org.virajshah.monopoly.tiles;
 
+@SuppressWarnings("unused")
 public class ColoredProperty extends PropertyTile {
     private int[] rents;
     private int housesOnProperty;

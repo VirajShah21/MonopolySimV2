@@ -2,6 +2,7 @@ package org.virajshah.monopoly.logger;
 
 import org.virajshah.monopoly.core.Player;
 
+@SuppressWarnings("unused")
 public class TransactionLog extends Log {
     protected Player sender;
     protected Player receiver;
@@ -19,7 +20,7 @@ public class TransactionLog extends Log {
     }
 
     public Player getReceiver() {
-        return getReceiver();
+        return receiver;
     }
 
     public int getAmount() {

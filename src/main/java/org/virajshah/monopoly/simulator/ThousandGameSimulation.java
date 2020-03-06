@@ -16,13 +16,9 @@ public class ThousandGameSimulation {
             game.addPlayer(new Player("Player 3"));
             game.addPlayer(new Player("Player 4"));
 
-            while (true) {
+            do {
                 game.runNextTurn();
-
-                if (game.getPlayers().isEmpty() || game.getPlayers().size() == 1) {
-                    break;
-                }
-            }
+            } while (!game.getPlayers().isEmpty() && game.getPlayers().size() != 1);
         }
     }
 }

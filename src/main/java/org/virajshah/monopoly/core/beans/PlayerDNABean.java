@@ -2,6 +2,7 @@ package org.virajshah.monopoly.core.beans;
 
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class PlayerDNABean {
     private static Random random = new Random();
     private double spendingTolerance;

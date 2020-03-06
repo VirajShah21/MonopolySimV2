@@ -10,6 +10,7 @@ import java.util.List;
  *
  * @author Viraj Shah
  */
+@SuppressWarnings("unused")
 public abstract class Tile {
     private static final String CHANCE_LABEL = "Chance";
     private static final String CHEST_LABEL = "Community Chest";

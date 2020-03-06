@@ -1,5 +1,6 @@
 package org.virajshah.monopoly.logger;
 
+@SuppressWarnings("unused")
 public class LogConfiguration {
     public enum LogFormat {
         TEXT, JSON

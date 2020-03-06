@@ -22,5 +22,7 @@ public class SimpleSimulation {
                 System.exit(0);
             }
         }
+
+        Logger.save();
     }
 }

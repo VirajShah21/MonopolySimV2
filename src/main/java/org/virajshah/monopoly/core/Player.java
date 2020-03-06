@@ -7,6 +7,7 @@ import org.virajshah.monopoly.tiles.PropertyTile;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Player {
     private String name;
     private int balance;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@SuppressWarnings("unused")
 public class TradeBroker {
     private Player client;
     private TileAttribute mostWantedSet;

@@ -3,6 +3,7 @@ package org.virajshah.monopoly.logger;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class Json extends HashMap<String, Object> {
     public Json() {
         super();

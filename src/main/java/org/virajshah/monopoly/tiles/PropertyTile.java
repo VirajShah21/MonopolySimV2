@@ -4,6 +4,7 @@ import org.virajshah.monopoly.core.Player;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class PropertyTile extends Tile {
     protected Player owner;
     protected int price;
@@ -38,6 +39,7 @@ public abstract class PropertyTile extends Tile {
         this.price = price;
     }
 
+    @SuppressWarnings("java:S131")
     public TileAttribute getColorSet() {
         for (TileAttribute attr : attributes) {
             switch (attr) {
@@ -57,8 +59,6 @@ public abstract class PropertyTile extends Tile {
                     return TileAttribute.SET7;
                 case SET8:
                     return TileAttribute.SET8;
-                default:
-                    continue;
             }
         }
         return null;

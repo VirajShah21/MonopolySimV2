@@ -3,6 +3,7 @@ package org.virajshah.monopoly.core.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class TurnHistoryBean {
     private int turnNumber;
     private int diceRoll1;
@@ -15,7 +16,7 @@ public class TurnHistoryBean {
     private int recentBalance;
     private ArrayList<Integer> newProperties;
     private ArrayList<Integer> lostProperties;
-    
+
     public TurnHistoryBean() {
         newProperties = new ArrayList<>();
         lostProperties = new ArrayList<>();
