@@ -1,4 +1,6 @@
-package org.virajshah.monopoly.core.beans;
+package org.virajshah.monopoly.beans;
+
+import org.virajshah.Json.Json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,4 +178,19 @@ public class TurnHistoryBean {
         this.lostProperties = (ArrayList<Integer>) lostProperties;
     }
 
+    public Json toJson() {
+        Json out = new Json();
+        out.put("turnNumber", turnNumber);
+        out.put("diceRoll1", diceRoll1);
+        out.put("diceRoll2", diceRoll1);
+        out.put("origin", origin);
+        out.put("destination", destination);
+        out.put("originInJail", originInJail);
+        out.put("destinationInJail", destinationInJail);
+        out.put("initialBalance", initialBalance);
+        out.put("recentBalance", recentBalance);
+        out.put("newProperties", newProperties);
+        out.put("lostProperties", lostProperties);
+        return out;
+    }
 }

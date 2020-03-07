@@ -40,7 +40,7 @@ public abstract class PropertyTile extends Tile {
     }
 
     @SuppressWarnings("java:S131")
-    public TileAttribute getColorSet() {
+    public TileAttribute getSetAttribute() {
         for (TileAttribute attr : attributes) {
             switch (attr) {
                 case SET1:
@@ -62,6 +62,29 @@ public abstract class PropertyTile extends Tile {
             }
         }
         return null;
+    }
+
+    public String getSetColor() {
+        switch (getSetAttribute()) {
+            case SET1:
+                return "Brown";
+            case SET2:
+                return "Light Blue";
+            case SET3:
+                return "Pink";
+            case SET4:
+                return "Orange";
+            case SET5:
+                return "Red";
+            case SET6:
+                return "Yellow";
+            case SET7:
+                return "Green";
+            case SET8:
+                return "Dark Blue";
+            default:
+                return "No Color";
+        }
     }
 
     public void transferOwnership(Player newOwner) {
@@ -105,13 +128,11 @@ public abstract class PropertyTile extends Tile {
      * @return True if the property is unowned and property was purchased; false
      * otherwise
      */
-    public boolean purchase(Player purchaser) {
+    public void purchase(Player purchaser) {
         if (!isOwned()) {
             purchaser.addMoney(-price);
+            purchaser.getProperties().add(this);
             owner = purchaser;
-            return true;
-        } else {
-            return false;
         }
     }
 

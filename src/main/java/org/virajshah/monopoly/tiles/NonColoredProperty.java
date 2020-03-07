@@ -18,6 +18,7 @@ public class NonColoredProperty extends PropertyTile {
             throw new RentCalculationException(String.format("Cannot get rent on %s; no owner.", name));
         }
 
+        // TODO: Run file search for ".contains("
         if (attributes.contains(TileAttribute.RAILROAD)) {
             int railroadCount = 0;
             for (PropertyTile prop : owner.getProperties())

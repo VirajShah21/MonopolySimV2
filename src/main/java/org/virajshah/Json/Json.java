@@ -1,6 +1,7 @@
-package org.virajshah.monopoly.logger;
+package org.virajshah.Json;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
@@ -55,6 +56,8 @@ public class Json extends HashMap<String, Object> {
             if (child.getValue() instanceof String)
                 out.append(String.format("\"%s\"", child.getValue()));
             else if (child.getValue() instanceof Number)
+                out.append(child.getValue().toString());
+            else if (child.getValue() instanceof List)
                 out.append(child.getValue().toString());
             else
                 out.append(child.getValue().toString());

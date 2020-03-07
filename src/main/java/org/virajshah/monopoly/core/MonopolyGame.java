@@ -1,6 +1,6 @@
 package org.virajshah.monopoly.core;
 
-import org.virajshah.monopoly.core.beans.TurnHistoryBean;
+import org.virajshah.monopoly.beans.TurnHistoryBean;
 import org.virajshah.monopoly.logger.InfoLog;
 import org.virajshah.monopoly.logger.Logger;
 import org.virajshah.monopoly.logger.RentTransactionLog;
@@ -135,13 +135,13 @@ public class MonopolyGame {
         for (Player p : players) {
             logOutput.append(String.format("\t%s: $%d:%n", p.getName(), p.getBalance()));
             for (PropertyTile prop : p.getProperties()) {
-                if (prop.getAttributes().contains(TileAttribute.COLORED_PROPERTY)) {
+                if (prop instanceof ColoredProperty) {
                     if (((ColoredProperty) prop).getHousesOnProperty() == 0)
-                        logOutput.append(String.format("\t\t%s%n", prop.getName()));
+                        logOutput.append(String.format("\t\t%-15s %s%n", prop.getSetColor(), prop.getName()));
                     else if (((ColoredProperty) prop).getHousesOnProperty() == 5)
-                        logOutput.append(String.format("\t\t%s w/ Hotel%n", prop.getName()));
+                        logOutput.append(String.format("\t\t%-15s %s w/ Hotel%n", prop.getSetColor(), prop.getName()));
                     else
-                        logOutput.append(String.format("\t\t%s %s%n", prop.getName(), ((ColoredProperty) prop).getHousesOnProperty()).trim());
+                        logOutput.append(String.format("\t\t%-15s %s %s%n", prop.getSetColor(), prop.getName(), ((ColoredProperty) prop).getHousesOnProperty()).trim());
                 }
             }
         }

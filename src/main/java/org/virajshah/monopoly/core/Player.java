@@ -1,7 +1,6 @@
 package org.virajshah.monopoly.core;
 
-import org.virajshah.monopoly.core.beans.PlayerDNABean;
-import org.virajshah.monopoly.core.beans.TurnHistoryBean;
+import org.virajshah.monopoly.beans.TurnHistoryBean;
 import org.virajshah.monopoly.tiles.PropertyTile;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ public class Player {
     private boolean prisoner;
     private List<TurnHistoryBean> turnHistory;
     private List<PropertyTile> properties;
-    private PlayerDNABean dna;
 
     /**
      * @param name The player's name (doesn't really matter)
@@ -27,7 +25,6 @@ public class Player {
         position = 0;
         turnHistory = new ArrayList<>();
         properties = new ArrayList<>();
-        dna = new PlayerDNABean();
     }
 
     /**
@@ -38,7 +35,6 @@ public class Player {
         position = 0;
         turnHistory = new ArrayList<>();
         properties = new ArrayList<>();
-        dna = new PlayerDNABean();
     }
 
     /**
@@ -158,19 +154,5 @@ public class Player {
      */
     public void setProperties(List<PropertyTile> properties) {
         this.properties = properties;
-    }
-
-    /**
-     * @return the dna
-     */
-    public PlayerDNABean getDna() {
-        return dna;
-    }
-
-    /**
-     * @param dna the dna to set
-     */
-    public void setDna(PlayerDNABean dna) {
-        this.dna = dna;
     }
 }

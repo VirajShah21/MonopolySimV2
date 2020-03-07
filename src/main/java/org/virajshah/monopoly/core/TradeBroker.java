@@ -48,10 +48,10 @@ public class TradeBroker {
 
         for (PropertyTile prop : client.getProperties()) {
             if (prop.getAttributes().contains(TileAttribute.COLORED_PROPERTY)) {
-                if (scores.containsKey(prop.getColorSet()))
-                    scores.put(prop.getColorSet(), scores.get(prop.getColorSet()) + 1);
+                if (scores.containsKey(prop.getSetAttribute()))
+                    scores.put(prop.getSetAttribute(), scores.get(prop.getSetAttribute()) + 1);
                 else
-                    scores.put(prop.getColorSet(), 1);
+                    scores.put(prop.getSetAttribute(), 1);
             }
         }
 
