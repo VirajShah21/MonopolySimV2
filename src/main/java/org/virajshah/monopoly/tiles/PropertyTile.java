@@ -59,6 +59,10 @@ public abstract class PropertyTile extends Tile {
                     return TileAttribute.SET7;
                 case SET8:
                     return TileAttribute.SET8;
+                case RAILROAD:
+                    return TileAttribute.RAILROAD;
+                case UTILITY:
+                    return TileAttribute.UTILITY;
             }
         }
         return null;

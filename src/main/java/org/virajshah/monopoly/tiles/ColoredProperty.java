@@ -17,6 +17,25 @@ public class ColoredProperty extends PropertyTile {
         housesOnProperty = 0;
     }
 
+    public int getHouseCost() {
+        switch (getSetAttribute()) {
+            case SET1:
+            case SET2:
+                return 50;
+            case SET3:
+            case SET4:
+                return 100;
+            case SET5:
+            case SET6:
+                return 150;
+            case SET7:
+            case SET8:
+                return 200;
+            default:
+                return 0;
+        }
+    }
+
     @Override
     public int getRent() {
         return rents[housesOnProperty];

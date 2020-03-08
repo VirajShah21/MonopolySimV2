@@ -18,9 +18,8 @@ public class SimpleSimulation {
         for (int i = 0; i < 1000; i++) {
             game.runNextTurn();
 
-            if (game.getPlayers().isEmpty() || game.getPlayers().size() == 1) {
+            if (game.getPlayers().isEmpty() || game.getPlayers().size() == 1)
                 System.exit(0);
-            }
         }
 
         Logger.save();
