@@ -11,7 +11,6 @@ public class RentTransactionLog extends TransactionLog {
         this.property = property;
     }
 
-    @SuppressWarnings("unused")
     public PropertyTile getProperty() {
         return property;
     }

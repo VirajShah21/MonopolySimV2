@@ -10,7 +10,6 @@ import java.util.List;
  *
  * @author Viraj Shah
  */
-@SuppressWarnings("unused")
 public abstract class Tile {
     private static final String CHANCE_LABEL = "Chance";
     private static final String CHEST_LABEL = "Community Chest";
@@ -52,13 +51,6 @@ public abstract class Tile {
      */
     public List<TileAttribute> getAttributes() {
         return attributes;
-    }
-
-    /**
-     * @param attributes the attributes to set
-     */
-    public void setAttributes(List<TileAttribute> attributes) {
-        this.attributes = (ArrayList<TileAttribute>) attributes;
     }
 
     /**

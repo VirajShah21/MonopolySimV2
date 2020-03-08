@@ -20,14 +20,12 @@ import java.util.Random;
  *
  * @author Viraj Shah
  */
-@SuppressWarnings("unused")
 public class MonopolyGame {
     private static final int JAIL_INDEX = 10;
     private static final Random random = new Random();
     private Tile[] board;
     private ArrayList<Player> players;
     private ArrayList<Player> bankruptedPlayers;
-    private int gameId;
     private int currPlayer;
     private static Logger logger = new Logger(MonopolyGame.class);
 
@@ -35,7 +33,6 @@ public class MonopolyGame {
         board = Tile.buildBoard();
         players = new ArrayList<>();
         bankruptedPlayers = new ArrayList<>();
-        gameId = random.nextInt(Integer.MAX_VALUE);
         currPlayer = 0;
     }
 
@@ -164,33 +161,5 @@ public class MonopolyGame {
      */
     public List<Player> getPlayers() {
         return players;
-    }
-
-    /**
-     * @return the gameId
-     */
-    public long getGameId() {
-        return gameId;
-    }
-
-    /**
-     * @return the currPlayer
-     */
-    public int getCurrPlayer() {
-        return currPlayer;
-    }
-
-    /**
-     * @return the bankruptedPlayers
-     */
-    public List<Player> getBankruptedPlayers() {
-        return bankruptedPlayers;
-    }
-
-    /**
-     * @param bankruptedPlayers the bankruptedPlayers to set
-     */
-    public void setBankruptedPlayers(List<Player> bankruptedPlayers) {
-        this.bankruptedPlayers = (ArrayList<Player>) bankruptedPlayers;
     }
 }

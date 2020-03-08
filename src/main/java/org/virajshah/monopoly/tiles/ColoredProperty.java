@@ -1,6 +1,5 @@
 package org.virajshah.monopoly.tiles;
 
-@SuppressWarnings("unused")
 public class ColoredProperty extends PropertyTile {
     private int[] rents;
     private int housesOnProperty;
@@ -51,19 +50,5 @@ public class ColoredProperty extends PropertyTile {
      */
     public int getHousesOnProperty() {
         return housesOnProperty;
-    }
-
-    /**
-     * @param housesOnProperty the housesOnProperty to set
-     */
-    public void setHousesOnProperty(int housesOnProperty) {
-        this.housesOnProperty = housesOnProperty;
-    }
-
-    /**
-     * @return the rents
-     */
-    public int[] getRents() {
-        return rents;
     }
 }

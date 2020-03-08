@@ -4,7 +4,6 @@ import org.virajshah.monopoly.core.Player;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public abstract class PropertyTile extends Tile {
     protected Player owner;
     protected int price;
@@ -112,13 +111,6 @@ public abstract class PropertyTile extends Tile {
     }
 
     /**
-     * @param owner the owner to set
-     */
-    public void setOwner(Player owner) {
-        this.owner = owner;
-    }
-
-    /**
      * @return the price
      */
     public int getPrice() {
@@ -129,8 +121,6 @@ public abstract class PropertyTile extends Tile {
      * Purchase the property
      *
      * @param purchaser The player purchasing the property
-     * @return True if the property is unowned and property was purchased; false
-     * otherwise
      */
     public void purchase(Player purchaser) {
         if (!isOwned()) {

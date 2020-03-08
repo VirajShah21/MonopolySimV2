@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class Logger {
     private static final String LOG_FORMAT = "* [%s]:%s - %s";
-
-    private static long runtimeId;
 
     private String className;
     private static List<Log> logs;
@@ -28,7 +25,7 @@ public class Logger {
 
     public static void init() {
         logs = new ArrayList<>();
-        runtimeId = generateRuntimeId();
+        long runtimeId = generateRuntimeId();
         try {
             writer = new PrintWriter(String.format("logs/RuntimeLog$%s.log", runtimeId), "UTF-8");
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
@@ -88,9 +85,5 @@ public class Logger {
             writer.println(logs.get(0).toString());
 
         writer.close();
-    }
-
-    public long getRuntimeId() {
-        return runtimeId;
     }
 }

@@ -46,40 +46,12 @@ public class TradeDeal {
         player2.addMoney(compensation);
     }
 
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
-    }
-
     public List<PropertyTile> getPlayer1acquisitions() {
         return player1acquisitions;
     }
 
-    public void setPlayer1acquisitions(List<PropertyTile> player1acquisitions) {
-        this.player1acquisitions = player1acquisitions;
-    }
-
     public List<PropertyTile> getPlayer2acquisitions() {
         return player2acquisitions;
-    }
-
-    public void setPlayer2acquisitions(List<PropertyTile> player2acquisitions) {
-        this.player2acquisitions = player2acquisitions;
-    }
-
-    public int getCompensation() {
-        return compensation;
     }
 
     public void setCompensation(int compensation) {

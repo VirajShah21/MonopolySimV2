@@ -1,6 +1,5 @@
 package org.virajshah.monopoly.logger;
 
-@SuppressWarnings("unused")
 public abstract class Log {
     protected String logType;
 

@@ -2,7 +2,6 @@ package org.virajshah.monopoly.tiles;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class BasicTile extends Tile {
     /**
      * @param name       The name of the tile

@@ -1,6 +1,5 @@
 package org.virajshah.monopoly.logger;
 
-@SuppressWarnings("unused")
 public class ErrorLog extends Log {
     Exception e;
 
