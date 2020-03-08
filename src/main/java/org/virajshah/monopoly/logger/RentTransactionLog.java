@@ -1,5 +1,6 @@
 package org.virajshah.monopoly.logger;
 
+import org.virajshah.json.Json;
 import org.virajshah.monopoly.core.Player;
 import org.virajshah.monopoly.tiles.PropertyTile;
 
@@ -13,6 +14,13 @@ public class RentTransactionLog extends TransactionLog {
 
     public PropertyTile getProperty() {
         return property;
+    }
+
+    @Override
+    public Json toJson() {
+        Json out = super.toJson();
+        out.put("property", property);
+        return out;
     }
 
     @Override

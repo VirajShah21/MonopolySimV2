@@ -1,5 +1,6 @@
 package org.virajshah.monopoly.logger;
 
+import org.virajshah.json.Json;
 import org.virajshah.monopoly.core.Player;
 
 public class TransactionLog extends Log {
@@ -12,6 +13,14 @@ public class TransactionLog extends Log {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
+    }
+
+    public Json toJson() {
+        Json out = super.toJson();
+        out.put("sender", sender.getName());
+        out.put("receiver", receiver.getName());
+        out.put("amount", amount);
+        return out;
     }
 
     @Override

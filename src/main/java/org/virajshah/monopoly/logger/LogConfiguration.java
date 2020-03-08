@@ -1,5 +1,8 @@
 package org.virajshah.monopoly.logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class LogConfiguration {
     public enum LogFormat {
@@ -11,6 +14,8 @@ public class LogConfiguration {
     static boolean writingErrors = true;
     static boolean printing = false;
     static boolean printingErrors = true;
+    static List<String> disabledWritingLogs = new ArrayList<>();
+    static List<String> disabledPrintingLogs = new ArrayList<>();
 
     public static LogFormat format() {
         return format;
@@ -50,5 +55,33 @@ public class LogConfiguration {
 
     public static void printingErrors(boolean newPrintingErrorsValues) {
         printingErrors = newPrintingErrorsValues;
+    }
+
+    public static List<String> disabledPrintingLogs() {
+        return disabledPrintingLogs;
+    }
+
+    public static List<String> disabledWritingLogs() {
+        return disabledWritingLogs;
+    }
+
+    public static void disablePrintingLogs(String type) {
+        if (!disabledPrintingLogs.contains(type))
+            disabledPrintingLogs.add(type);
+    }
+
+    public static void enablePrintingLogs(String type) {
+        if (disabledPrintingLogs.contains(type))
+            disabledPrintingLogs.add(type);
+    }
+
+    public static void disableWritingLogs(String type) {
+        if (!disabledWritingLogs.contains(type))
+            disabledWritingLogs.add(type);
+    }
+
+    public static void enableWritingLogs(String type) {
+        if (disabledWritingLogs.contains(type))
+            disabledWritingLogs.add(type);
     }
 }

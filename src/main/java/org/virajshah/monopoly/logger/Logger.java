@@ -1,5 +1,7 @@
 package org.virajshah.monopoly.logger;
 
+import org.virajshah.monopoly.logger.LogConfiguration.LogFormat;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Logger {
-    private static final String LOG_FORMAT = "* [%s]:%s - %s";
+    private static final String TEXT_LOG_FORMAT = "* [%s]:%s - %s";
 
     private String className;
     private static List<Log> logs;
@@ -42,20 +44,28 @@ public class Logger {
         String timeStamp = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
         logs.add(nextLog);
 
-        if (LogConfiguration.printing())
-            System.out.println(String.format(LOG_FORMAT, timeStamp, className, nextLog.toString()));
+        if (isLogAllowedForPrinting(nextLog) && LogConfiguration.format() == LogFormat.TEXT) {
+            if (LogConfiguration.printing())
+                System.out.println(String.format(TEXT_LOG_FORMAT, timeStamp, className, nextLog.toString()));
 
-        if (nextLog instanceof ErrorLog && LogConfiguration.printingErrors() && ((ErrorLog) nextLog).getException() != null)
-            for (StackTraceElement element : ((ErrorLog) nextLog).getException().getStackTrace())
-                System.out.println(String.format(LOG_FORMAT, timeStamp, className, element.toString()));
+            if (nextLog instanceof ErrorLog && LogConfiguration.printingErrors() && ((ErrorLog) nextLog).getException() != null)
+                for (StackTraceElement element : ((ErrorLog) nextLog).getException().getStackTrace())
+                    System.out.println(String.format(TEXT_LOG_FORMAT, timeStamp, className, element.toString()));
+        }
+    }
 
-        if (LogConfiguration.writing() && LogConfiguration.format() == LogConfiguration.LogFormat.TEXT)
-            writer.println(String.format(LOG_FORMAT, timeStamp, className, nextLog.toString()));
+    private static boolean isLogAllowedForWriting(Log tmp) {
+        for (String type : LogConfiguration.disabledWritingLogs())
+            if (tmp.getType().equals(type))
+                return false;
+        return true;
+    }
 
-        if (nextLog instanceof ErrorLog && LogConfiguration.writingErrors() && ((ErrorLog) nextLog).getException() != null)
-            for (StackTraceElement element : ((ErrorLog) nextLog).getException().getStackTrace())
-                writer.println(String.format(LOG_FORMAT, timeStamp, className, element.toString()));
-
+    private static boolean isLogAllowedForPrinting(Log tmp) {
+        for (String type : LogConfiguration.disabledPrintingLogs())
+            if (tmp.getType().equals(type))
+                return false;
+        return true;
     }
 
     private static long generateRuntimeId() {
@@ -81,8 +91,23 @@ public class Logger {
     }
 
     public static void save() {
-        if (logs.size() == 1 && logs.get(0) instanceof JsonLog)
-            writer.println(logs.get(0).toString());
+        StringBuilder out = new StringBuilder("[");
+        if (LogConfiguration.format() == LogFormat.JSON) {
+            int processed = 0;
+            int total = logs.size();
+
+            for (Log log : logs) {
+                if (!LogConfiguration.disabledWritingLogs().contains(log.getType()))
+                    out.append(log.toJson());
+
+                processed++;
+
+                if (processed != total)
+                    out.append(",\n");
+            }
+            out.append("\n]");
+            writer.println(out.toString());
+        }
 
         writer.close();
     }

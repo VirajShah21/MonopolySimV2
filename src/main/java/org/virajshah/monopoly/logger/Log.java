@@ -1,18 +1,26 @@
 package org.virajshah.monopoly.logger;
 
-public abstract class Log {
-    protected String logType;
+import org.virajshah.json.Json;
 
-    public Log(String logType) {
-        this.logType = logType;
+public abstract class Log {
+    protected String type;
+
+    public Log(String type) {
+        this.type = type;
     }
 
-    public String getLogType() {
-        return logType;
+    public String getType() {
+        return type;
+    }
+
+    public Json toJson() {
+        Json out = new Json();
+        out.put("type", type);
+        return out;
     }
 
     @Override
     public String toString() {
-        return logType + ":";
+        return type + ":";
     }
 }
