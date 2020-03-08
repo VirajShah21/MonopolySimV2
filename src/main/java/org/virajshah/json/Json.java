@@ -44,6 +44,17 @@ public class Json extends HashMap<String, Object> {
         put(key, value + "");
     }
 
+    private static String refactorStringValue(String in) {
+        while (in.contains("\n"))
+            in = in.replace("\n", "\\n");
+
+        while (in.contains("\t"))
+            in = in.replace("\t", "\\t");
+
+        return in;
+    }
+
+    @Override
     public String toString() {
         StringBuilder out = new StringBuilder("{");
         int entriesEvaluated = 0;
@@ -54,13 +65,13 @@ public class Json extends HashMap<String, Object> {
             out.append(String.format("\"%s\": ", child.getKey()));
 
             if (child.getValue() instanceof String)
-                out.append(String.format("\"%s\"", child.getValue()));
+                out.append(String.format("\"%s\"", refactorStringValue((String) child.getValue())));
             else if (child.getValue() instanceof Number)
-                out.append(child.getValue().toString());
+                out.append(refactorStringValue(child.getValue().toString()));
             else if (child.getValue() instanceof List)
-                out.append(child.getValue().toString());
+                out.append(refactorStringValue(child.getValue().toString()));
             else
-                out.append(child.getValue().toString());
+                out.append(refactorStringValue(child.getValue().toString()));
 
             if (entriesEvaluated != size()) {
                 out.append(",\n");
