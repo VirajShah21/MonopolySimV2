@@ -33,7 +33,8 @@ public class TradeBroker {
             int value = prop.getPrice();
 
             if (getAttributeCompletion(prop.getSetAttribute()) == 1) {
-                value += countHousesOnSet(prop.getSetAttribute()) * ((ColoredProperty) prop).getHouseCost();
+                if (prop instanceof ColoredProperty)
+                    value += countHousesOnSet(prop.getSetAttribute()) * ((ColoredProperty) prop).getHouseCost();
                 value *= 4;
             } else if (getAttributeCompletion(prop.getSetAttribute()) >= 0.66) {
                 value *= 3;
@@ -77,7 +78,7 @@ public class TradeBroker {
     public int countHousesOnSet(TileAttribute set) {
         int count = 0;
         for (PropertyTile prop : client.getProperties())
-            if (prop.getAttributes().contains(set))
+            if (prop instanceof ColoredProperty && prop.getAttributes().contains(set))
                 count += ((ColoredProperty) prop).getHousesOnProperty();
         return count;
     }

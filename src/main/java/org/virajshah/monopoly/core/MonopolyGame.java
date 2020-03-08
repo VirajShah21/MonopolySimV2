@@ -1,5 +1,6 @@
 package org.virajshah.monopoly.core;
 
+import org.virajshah.monopoly.banker.TradeManager;
 import org.virajshah.monopoly.beans.TurnHistoryBean;
 import org.virajshah.monopoly.logger.InfoLog;
 import org.virajshah.monopoly.logger.Logger;
@@ -117,6 +118,8 @@ public class MonopolyGame {
                 logger.log(new RentTransactionLog(player, property.getOwner(), rentDue, property));
             }
         }
+
+        TradeManager.runBestTrade(player);
 
         turn.setRecentBalance(player.getBalance());
 

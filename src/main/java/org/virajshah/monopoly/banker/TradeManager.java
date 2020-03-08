@@ -38,7 +38,7 @@ public class TradeManager {
             player2value += values.get(prop);
 
         deal.setCompensation(player2value - player1value);
-
+        
         deal.execute();
     }
 }
