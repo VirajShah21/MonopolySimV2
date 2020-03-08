@@ -1,6 +1,6 @@
 package org.virajshah.monopoly.beans;
 
-import org.virajshah.Json.Json;
+import org.virajshah.json.Json;
 
 import java.util.ArrayList;
 import java.util.List;

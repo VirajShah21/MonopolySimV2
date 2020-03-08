@@ -7,6 +7,9 @@ import org.virajshah.monopoly.tiles.TileAttribute;
 import java.util.Map;
 
 public class TradeManager {
+    private TradeManager() {
+    }
+
     public static void runBestTrade(Player client) {
         TradeBroker broker = new TradeBroker(client);
 
@@ -38,7 +41,7 @@ public class TradeManager {
             player2value += values.get(prop);
 
         deal.setCompensation(player2value - player1value);
-        
+
         deal.execute();
     }
 }

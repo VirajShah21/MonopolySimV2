@@ -1,6 +1,6 @@
 package org.virajshah.monopoly.logger;
 
-import org.virajshah.Json.Json;
+import org.virajshah.json.Json;
 
 public class JsonLog extends Log {
     Json log;

@@ -1,4 +1,4 @@
-package org.virajshah.Json;
+package org.virajshah.json;
 
 import java.util.HashMap;
 import java.util.List;

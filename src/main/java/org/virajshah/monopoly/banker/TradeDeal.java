@@ -28,7 +28,7 @@ public class TradeDeal {
 
     public void execute() {
         logger.log(new InfoLog(
-                String.format("New Trade between %s (1) and %s (2).\n\tPlayer 1 gets %s\n\tPlayer 2 gets %s\n\t + Transaction",
+                String.format("New Trade between %s (1) and %s (2).%n\tPlayer 1 gets %s%n\tPlayer 2 gets %s%n\t + Transaction",
                         player1.getName(), player2.getName(), player1acquisitions.toString(), player2acquisitions.toString())));
 
         if (compensation > 0)

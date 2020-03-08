@@ -7,6 +7,7 @@ import org.virajshah.monopoly.tiles.PropertyTile;
 import org.virajshah.monopoly.tiles.Tile;
 import org.virajshah.monopoly.tiles.TileAttribute;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +62,11 @@ public class TradeBroker {
             if (tile.getAttributes().contains(attr))
                 total++;
 
-        return (double) count / total;
+        return total != 0 ? (double) count / total : 0;
     }
 
     public Map<TileAttribute, Double> getAttributeCompletions() {
-        HashMap<TileAttribute, Double> out = new HashMap<>();
+        EnumMap<TileAttribute, Double> out = new EnumMap<>(TileAttribute.class);
 
         for (PropertyTile prop : client.getProperties()) {
             TileAttribute attr = prop.getSetAttribute();
