@@ -9,6 +9,10 @@ public class TurnHistorySimulation {
     public static void main(String[] args) {
         Logger.init();
         LogConfiguration.format(LogConfiguration.LogFormat.JSON);
+        
+        LogConfiguration.disableWritingLogs("InfoLog");
+        LogConfiguration.disableWritingLogs("RentTransactionLog");
+        LogConfiguration.disableWritingLogs("TransactionLog");
 
         MonopolyGame game = new MonopolyGame();
 

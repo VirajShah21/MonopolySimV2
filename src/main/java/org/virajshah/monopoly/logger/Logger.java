@@ -44,7 +44,7 @@ public class Logger {
         String timeStamp = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
         logs.add(nextLog);
 
-        if (isLogAllowedForPrinting(nextLog) && LogConfiguration.format() == LogFormat.TEXT) {
+        if (LogConfiguration.disabledPrintingLogs.contains(nextLog.getType()) && LogConfiguration.format() == LogFormat.TEXT) {
             if (LogConfiguration.printing())
                 System.out.println(String.format(TEXT_LOG_FORMAT, timeStamp, className, nextLog.toString()));
 
@@ -52,20 +52,6 @@ public class Logger {
                 for (StackTraceElement element : ((ErrorLog) nextLog).getException().getStackTrace())
                     System.out.println(String.format(TEXT_LOG_FORMAT, timeStamp, className, element.toString()));
         }
-    }
-
-    private static boolean isLogAllowedForWriting(Log tmp) {
-        for (String type : LogConfiguration.disabledWritingLogs())
-            if (tmp.getType().equals(type))
-                return false;
-        return true;
-    }
-
-    private static boolean isLogAllowedForPrinting(Log tmp) {
-        for (String type : LogConfiguration.disabledPrintingLogs())
-            if (tmp.getType().equals(type))
-                return false;
-        return true;
     }
 
     private static long generateRuntimeId() {
@@ -97,13 +83,14 @@ public class Logger {
             int total = logs.size();
 
             for (Log log : logs) {
-                if (!LogConfiguration.disabledWritingLogs().contains(log.getType()))
+                if (!LogConfiguration.disabledWritingLogs().contains(log.getType())) {
                     out.append(log.toJson());
 
-                processed++;
+                    processed++;
 
-                if (processed != total)
-                    out.append(",\n");
+                    if (processed != total)
+                        out.append(",\n");
+                }
             }
             out.append("\n]");
             writer.println(out.toString());

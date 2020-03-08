@@ -15,6 +15,7 @@ public class TransactionLog extends Log {
         this.amount = amount;
     }
 
+    @Override
     public Json toJson() {
         Json out = super.toJson();
         out.put("sender", sender.getName());

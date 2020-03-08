@@ -5,6 +5,7 @@ import org.virajshah.monopoly.beans.TurnHistoryBean;
 import org.virajshah.monopoly.logger.InfoLog;
 import org.virajshah.monopoly.logger.Logger;
 import org.virajshah.monopoly.logger.RentTransactionLog;
+import org.virajshah.monopoly.logger.TurnHistoryLog;
 import org.virajshah.monopoly.tiles.ColoredProperty;
 import org.virajshah.monopoly.tiles.PropertyTile;
 import org.virajshah.monopoly.tiles.Tile;
@@ -126,6 +127,8 @@ public class MonopolyGame {
             players.remove(player);
             logger.log(new InfoLog(String.format("%s is now bankrupt ($%d). Removing from game.", player.getName(), player.getBalance())));
         }
+
+        logger.log(new TurnHistoryLog(turn));
 
         logAllPlayerUpdates();
     }
